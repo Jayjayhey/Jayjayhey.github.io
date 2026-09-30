@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UE5 Dev Journey & Course Hub</title>
+  <style>
+    :root {
+      --bg-main: #0B0E14;
+      --bg-surface: #151A22;
+      --bg-sidebar: #11151D;
+      --accent: #00BCFF; /* UE5 Electric Blue */
+      --accent-dim: rgba(0, 188, 255, 0.1);
+      --text-main: #F0F3F6;
+      --text-muted: #8B949E;
+      --border: #21262D;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar Navigation */
+    aside {
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 2rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-group-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    nav ul {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-btn {
+      width: 100%;
+      background: none;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+    }
+
+    .nav-btn.active {
+      background-color: var(--accent-dim);
+      color: var(--accent);
+      border-color: rgba(0, 188, 255, 0.3);
+      font-weight: 600;
+    }
+
+    /* Main Content Area */
+    main {
+      overflow-y: auto;
+      padding: 2.5rem;
+    }
+
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+    }
+
+    .meta {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Video Player Component */
+    .video-container {
+      background-color: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 16 / 9;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Markdown-style Content Layout */
+    .lesson-text {
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+
+    .lesson-text p {
+      margin-bottom: 1.25rem;
+      color: #D1D5DB;
+    }
+
+    .code-block {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      font-family: "Fira Code", Consolas, Monaco, monospace;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    .code-header {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    code {
+      color: #E2E8F0;
+      white-space: pre;
+    }
+
+    /* Responsive Grid layout update for Mobile */
+    @media (max-width: 768px) {
+      body {
+        grid-template-columns: 1fr;
+      }
+      aside {
+        display: none; /* Keep it dead simple for mobile lazyness */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside>
+    <div class="brand">
+      <span>▲</span> UE5 Dev Logs
+    </div>
+    
+    <div class="nav-group-title">Modules</div>
+    <nav>
+      <ul>
+        <li><button class="nav-btn active" onclick="loadLesson('lesson1')">01. Setup & Architecture</button></li>
+        <li><button class="nav-btn" onclick="loadLesson('lesson2')">02. Responsive Character Movement</button></li>
+        <li><button class="nav-btn" onclick="loadLesson('lesson3')">03. C++ Data Pipelines</button></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Showcase Area -->
+  <main>
+    <div class="content-wrapper">
+      <h1 id="lesson-title">01. Setup & Architecture</h1>
+      <div class="meta" id="lesson-meta">Module 1 • System Architecture</div>
+      
+      <!-- Native HTML5 Stream Player (Ad-Free, No Branding) -->
+      <div class="video-container">
+        <video id="lesson-video" controls controlsList="nodownload" poster="https://placehold.co">
+          <source id="video-source" src="https://w3schools.com" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Dynamic Documentation Section -->
+      <article class="lesson-text" id="lesson-content">
+        <p>Welcome to the first milestone of our developer pipeline. In this segment, we are analyzing structural project setups to maximize runtime efficiency and modular scale inside Unreal Engine 5.</p>
+        
+        <div class="code-block">
+          <div class="code-header">Build.cs Dependency Configuration</div>
+          <code>PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });</code>
+        </div>
+        
+        <p>Make sure you explicitly include EnhancedInput inside your target configuration to support modern contextual mappings across multi-device inputs.</p>
+      </article>
+    </div>
+  </main>
+
+  <!-- Dynamic Course Processing Script -->
+  <script>
+    // Hardcoded JSON structure - Completely database-free static layout
+    const courseData = {
+      lesson1: {
+        title: "01. Setup & Architecture",
+        meta: "Module 1 • System Architecture",
+        videoUrl: "https://w3schools.com",
+        html: `<p>Welcome to the first milestone of our developer pipeline. In this segment, we are analyzing structural project setups to maximize runtime efficiency and modular scale inside Unreal Engine 5.</p>
+               <div class="code-block">
+                 <div class="code-header">Build.cs Dependency Configuration</div>
+                 <code>PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });</code>
+               </div>
+               <p>Make sure you explicitly include EnhancedInput inside your target configuration to support modern contextual mappings across multi-device inputs.</p>`
+      },
+      lesson2: {
+        title: "02. Responsive Character Movement",
+        meta: "Module 2 • Physics Mechanics",
+        videoUrl: "https://w3schools.com",
+        html: `<p>Diving into character kinetics. Today we are extending the default Character Movement Component variables via custom C++ subroutines to manage rapid acceleration changes cleanly.</p>
+               <div class="code-block">
+                 <div class="code-header">Custom Acceleration Logic</div>
+                 <code>GetCharacterMovement()->MaxWalkSpeed = 600.0f;<br>GetCharacterMovement()->BrakingDecelerationWalking = 2000.0f;</code>
+               </div>
+               <p>Adjust these values contextually depending on whether your core gameplay loop relies on arcade velocity profiles or realistic weight distribution.</p>`
+      },
+      lesson3: {
+        title: "03. C++ Data Pipelines",
+        meta: "Module 3 • Data Layer",
+        videoUrl: "https://w3schools.com",
+        html: `<p>Structuring custom spreadsheet pipelines via UDataTables. We bypass raw blueprint mapping tables to guarantee zero memory fragmentation at compilation.</p>
+               <div class="code-block">
+                 <div class="code-header">USTRUCT Struct Definition</div>
+                 <code>USTRUCT(BlueprintType)<br>struct FItemData : public FTableRowBase {\n  GENERATED_BODY()\n  UPROPERTY(EditAnywhere) FString Name;\n};</code>
+               </div>`
+      }
+    };
+
+    function loadLesson(lessonKey) {
+      const data = courseData[lessonKey];
+      if (!data) return;
+
+      // Update active text strings
+      document.getElementById('lesson-title').innerText = data.title;
+      document.getElementById('lesson-meta').innerText = data.meta;
+      document.getElementById('lesson-content').innerHTML = data.html;
+
+      // Update native source tree gracefully
+      const video = document.getElementById('lesson-video');
+      const source = document.getElementById('video-source');
+      source.src = data.videoUrl;
+      
+      video.load(); // Refresh engine player state
+      
+      // Clear and toggle navigational sidebar indicators
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
