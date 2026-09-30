@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Hub // UE5 Journey</title>
+  <title>Workspace // UE5 Journey</title>
   <style>
     :root {
-      --bg-base: #030712;
-      --bg-panel: #0b0f19;
-      --bg-panel-hover: #161b26;
-      --accent: #00bcff;
-      --accent-glow: rgba(0, 188, 255, 0.15);
-      --border: rgba(255, 255, 255, 0.04);
-      --border-active: rgba(0, 188, 255, 0.3);
-      --text-body: #9ca3af;
-      --text-heading: #f3f4f6;
-      --text-pure: #ffffff;
-      --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+      --bg-base: #05070B;
+      --bg-panel: #0B101D;
+      --bg-card: #121826;
+      --accent: #00BCFF;
+      --accent-rgb: 0, 188, 255;
+      --border: rgba(255, 255, 255, 0.05);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --text-heading: #FFFFFF;
+      --text-body: #94A3B8;
+      --text-muted: #475569;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
     }
 
     * {
@@ -29,156 +29,153 @@
     body {
       background-color: var(--bg-base);
       color: var(--text-body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       display: flex;
       height: 100vh;
       overflow: hidden;
     }
 
-    /* Minimal Left Navigation Workspace */
+    /* Left Drawer Workspace Panel */
     aside {
-      width: 320px;
+      width: 340px;
       background-color: var(--bg-panel);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.75rem;
       z-index: 10;
     }
 
-    .brand-section {
+    .brand {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
     }
 
-    .brand-logo {
-      width: 24px;
-      height: 24px;
-      background: linear-gradient(135deg, var(--accent), #0066ff);
-      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    .brand-icon {
+      width: 12px;
+      height: 12px;
+      background-color: var(--accent);
+      transform: rotate(45deg);
+      box-shadow: 0 0 12px var(--accent);
     }
 
-    .brand-title {
-      font-size: 0.9rem;
+    .brand-text {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-heading);
+    }
+
+    .nav-header {
+      font-size: 0.65rem;
       font-weight: 700;
+      text-transform: uppercase;
       letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-pure);
-    }
-
-    .nav-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255, 255, 255, 0.3);
-      margin-bottom: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
     }
 
     nav {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.5rem;
     }
 
-    .nav-item {
+    .nav-card {
       all: unset;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.85rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-body);
+      background-color: transparent;
       border: 1px solid transparent;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .nav-item:hover {
-      background-color: var(--bg-panel-hover);
+    .nav-card:hover {
+      background-color: rgba(255, 255, 255, 0.02);
+      border-color: var(--border);
+    }
+
+    .nav-card.active {
+      background-color: var(--bg-card);
+      border-color: rgba(var(--accent-rgb), 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-card .meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-card.active .meta {
+      color: var(--accent);
+    }
+
+    .nav-card .title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-body);
+    }
+
+    .nav-card.active .title {
       color: var(--text-heading);
     }
 
-    .nav-item.active {
-      background-color: var(--accent-glow);
-      color: var(--accent);
-      border-color: var(--border-active);
-    }
-
-    .nav-item .index {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      opacity: 0.6;
-    }
-
-    /* Core Content Feed */
+    /* Content Stage Area */
     main {
       flex: 1;
       overflow-y: auto;
-      padding: 4rem;
+      padding: 5rem;
       position: relative;
     }
 
-    /* Subtle background grid matrix */
+    /* Refined Architectural Grid Backing */
     main::before {
       content: '';
       position: absolute;
       inset: 0;
       background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-size: 48px 48px;
       pointer-events: none;
-      opacity: 0.5;
-      z-index: 0;
+      opacity: 0.6;
     }
 
-    .view-container {
-      max-width: 840px;
+    .container {
+      max-width: 900px;
       margin: 0 auto;
       position: relative;
-      z-index: 1;
     }
 
-    .header-group {
-      margin-bottom: 2.5rem;
+    .header-block {
+      margin-bottom: 3.5rem;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text-pure);
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.04em;
+      color: var(--text-heading);
+      line-height: 1.15;
     }
 
-    .meta-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      background-color: var(--accent-glow);
-      padding: 0.25rem 0.75rem;
-      border-radius: 100px;
-      border: 1px solid var(--border-active);
-    }
-
-    /* Sleek Player Stage Container */
-    .media-stage {
-      background-color: #000;
-      border-radius: 16px;
+    /* Clean Layout Media Stage */
+    .media-frame {
+      background-color: #020408;
+      border-radius: 20px;
       overflow: hidden;
       border: 1px solid var(--border);
       aspect-ratio: 16 / 9;
-      margin-bottom: 3rem;
-      box-shadow: 0 30px 60px -15px rgba(0,0,0,0.8);
-      position: relative;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.9);
     }
 
     video {
@@ -187,54 +184,44 @@
       object-fit: cover;
     }
 
-    /* Custom Technical Document Layout */
-    .article-body {
-      font-size: 1.05rem;
-      line-height: 1.8;
+    /* Structured Breakdown Elements */
+    .prose {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: var(--text-body);
     }
 
-    .article-body p {
-      margin-bottom: 1.5rem;
+    .prose p {
+      margin-bottom: 1.75rem;
     }
 
-    /* Raw Code Display Engine */
+    /* Code Block Architecture */
     .code-canvas {
-      background: linear-gradient(180deg, #090d16 0%, #05070b 100%);
+      background-color: #020408;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      margin: 2rem 0;
+      border-radius: 14px;
+      margin: 2.5rem 0;
       overflow: hidden;
     }
 
-    .code-canvas-header {
+    .code-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 1.25rem;
-      background-color: rgba(255, 255, 255, 0.02);
+      padding: 1rem 1.5rem;
+      background-color: rgba(255, 255, 255, 0.01);
       border-bottom: 1px solid var(--border);
     }
 
-    .code-canvas-title {
+    .code-file {
       font-family: var(--font-mono);
       font-size: 0.75rem;
+      letter-spacing: 0.02em;
       color: var(--text-heading);
     }
 
-    .dot-group {
-      display: flex;
-      gap: 0.35rem;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--border);
-    }
-
-    .code-canvas-pre {
-      padding: 1.5rem;
+    .code-pre {
+      padding: 1.75rem;
       overflow-x: auto;
       margin: 0;
     }
@@ -242,70 +229,74 @@
     code {
       font-family: var(--font-mono);
       font-size: 0.9rem;
-      color: #e5e7eb;
+      line-height: 1.6;
+      color: #E2E8F0;
       white-space: pre;
       display: block;
     }
 
-    /* Utilities */
-    .keyword { color: #ff79c6; }
-    .type { color: #8be9fd; }
-    .string { color: #f1fa8c; }
+    /* Syntax Highlighting Custom Sub-layers */
+    .keyword { color: #F43F5E; font-weight: 600; }
+    .type { color: #38BDF8; }
+    .string { color: #34D399; }
+    .comment { color: #64748B; font-style: italic; }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1024px) {
       body { flex-direction: column; }
-      aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
-      main { padding: 2rem 1.5rem; }
+      aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }
+      main { padding: 3rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Left Sidebar Navigation Menu Workspace -->
   <aside>
-    <div class="brand-section">
-      <div class="brand-logo"></div>
-      <div class="brand-title">Workspace</div>
+    <div class="brand">
+      <div class="brand-icon"></div>
+      <div class="brand-text">Core Hub</div>
     </div>
     
-    <div class="nav-label">Core Pipeline</div>
+    <div class="nav-header">Architecture Modules</div>
     <nav>
-      <button class="nav-item active" onclick="switchStage('track1')">
-        <span>Project Architecture</span>
-        <span class="index">01</span>
+      <button class="nav-card active" onclick="switchStage('m1')">
+        <span class="meta">Module // 01</span>
+        <span class="title">Project Architecture Setup</span>
       </button>
-      <button class="nav-item" onclick="switchStage('track2')">
-        <span>Movement Mechanics</span>
-        <span class="index">02</span>
+      <button class="nav-card" onclick="switchStage('m2')">
+        <span class="meta">Module // 02</span>
+        <span class="title">Custom Physics Vectors</span>
       </button>
-      <button class="nav-item" onclick="switchStage('track3')">
-        <span>Data Architecture</span>
-        <span class="index">03</span>
+      <button class="nav-card" onclick="switchStage('m3')">
+        <span class="meta">Module // 03</span>
+        <span class="title">Data Layer Optimization</span>
       </button>
     </nav>
   </aside>
 
+  <!-- Core Content Interactive Stage -->
   <main>
-    <div class="view-container">
-      <div class="header-group">
-        <div class="meta-tag" id="stage-meta">Pipeline // 01</div>
-        <h1 id="stage-title" style="margin-top: 1rem;">Project Initialization & Directory Structure</h1>
+    <div class="container">
+      <div class="header-block">
+        <h1 id="stage-title">Project Initialization & Directory Structure</h1>
       </div>
       
-      <div class="media-stage">
+      <!-- Native Player Component -->
+      <div class="media-frame">
         <video id="stage-player" controls controlsList="nodownload">
           <source id="player-src" src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
         </video>
       </div>
 
-      <article class="article-body" id="stage-markdown">
+      <!-- Live Layout Documentation Engine -->
+      <article class="prose" id="stage-content">
         <p>Establishing clean boundaries at the structural layer prevents scale failures later inside the Unreal Engine compilation lifecycle. We maintain rigid dependencies via C++ rules to protect execution cycles.</p>
         
         <div class="code-canvas">
-          <div class="code-canvas-header">
-            <div class="code-canvas-title">Project.Build.cs</div>
-            <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="code-header">
+            <div class="code-file">Project.Build.cs</div>
           </div>
-          <div class="code-canvas-pre">
+          <div class="code-pre">
             <code><span class="keyword">PublicDependencyModuleNames</span>.<span class="type">AddRange</span>(<span class="keyword">new</span> <span class="type">string</span>[] { <span class="string">"Core"</span>, <span class="string">"CoreUObject"</span>, <span class="string">"Engine"</span>, <span class="string">"EnhancedInput"</span> });</code>
           </div>
         </div>
@@ -317,50 +308,44 @@
 
   <script>
     const database = {
-      track1: {
+      m1: {
         title: "Project Initialization & Directory Structure",
-        meta: "Pipeline // 01",
         src: "https://www.w3schools.com/html/mov_bbb.mp4",
         body: `<p>Establishing clean boundaries at the structural layer prevents scale failures later inside the Unreal Engine compilation lifecycle. We maintain rigid dependencies via C++ rules to protect execution cycles.</p>
                <div class="code-canvas">
-                 <div class="code-canvas-header">
-                   <div class="code-canvas-title">Project.Build.cs</div>
-                   <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                 <div class="code-header">
+                   <div class="code-file">Project.Build.cs</div>
                  </div>
-                 <div class="code-canvas-pre">
+                 <div class="code-pre">
                    <code><span class="keyword">PublicDependencyModuleNames</span>.<span class="type">AddRange</span>(<span class="keyword">new</span> <span class="type">string</span>[] { <span class="string">"Core"</span>, <span class="string">"CoreUObject"</span>, <span class="string">"Engine"</span>, <span class="string">"EnhancedInput"</span> });</code>
                  </div>
                </div>
                <p>By enforcing modular dependencies early on, raw input handling strings remain decoupled from player character models entirely.</p>`
       },
-      track2: {
+      m2: {
         title: "Extending Character Physics Vectors",
-        meta: "Pipeline // 02",
         src: "https://www.w3schools.com/html/movie.mp4",
         body: `<p>Modifying kinetic calculations requires manual adjustments over default movement friction models. We isolate velocity parameters within custom subroutines directly inside our source ticks.</p>
                <div class="code-canvas">
-                 <div class="code-canvas-header">
-                   <div class="code-canvas-title">CustomCharacter.cpp</div>
-                   <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                 <div class="code-header">
+                   <div class="code-file">CustomCharacter.cpp</div>
                  </div>
-                 <div class="code-canvas-pre">
-                   <code><span class="type">GetCharacterMovement</span>()-><span class="keyword">BrakingDecelerationWalking</span> = <span class="string">2000.0f</span>;<br><span class="type">GetCharacterMovement</span>()-><span class="keyword">MaxWalkSpeed</span> = <span class="string">600.0f</span>;</code>
+                 <div class="code-pre">
+                   <code><span class="comment">// Modify kinetic braking rules directly via character subroutines</span><br><span class="type">GetCharacterMovement</span>()-><span class="keyword">BrakingDecelerationWalking</span> = <span class="string">2000.0f</span>;<br><span class="type">GetCharacterMovement</span>()-><span class="keyword">MaxWalkSpeed</span> = <span class="string">600.0f</span>;</code>
                  </div>
                </div>
                <p>This approach delivers instant deceleration response, eliminating the loose sliding artifacts commonly found in default blueprint presets.</p>`
       },
-      track3: {
+      m3: {
         title: "Asynchronous Data Table Extraction",
-        meta: "Pipeline // 03",
         src: "https://www.w3schools.com/html/mov_bbb.mp4",
         body: `<p>To optimize physical memory states, engine references can be managed dynamically. We use structural layouts to streamline raw data transformations securely.</p>
                <div class="code-canvas">
-                 <div class="code-canvas-header">
-                   <div class="code-canvas-title">ItemDataPipeline.h</div>
-                   <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                 <div class="code-header">
+                   <div class="code-file">ItemDataPipeline.h</div>
                  </div>
-                 <div class="code-canvas-pre">
-                   <code><span class="keyword">USTRUCT</span>(<span class="type">BlueprintType</span>)<br><span class="keyword">struct</span> <span class="type">FItemData</span> : <span class="keyword">public</span> <span class="type">FTableRowBase</span> {<br>  GENERATED_BODY()<br>  <span class="keyword">UPROPERTY</span>(<span class="type">EditAnywhere</span>) <span class="type">FString</span> ItemName;<br>};</code>
+                 <div class="code-pre">
+                   <code><span class="keyword">USTRUCT</span>(<span class="type">BlueprintType</span>)<br><span class="keyword">struct</span> <span class="type">FItemData</span> : <span class="keyword">public</span> <span class="type">FTableRowBase</span> {<br>  GENERATED_BODY()<br><br>  <span class="keyword">UPROPERTY</span>(<span class="type">EditAnywhere</span>) <span class="type">FString</span> ItemName;<br>};</code>
                  </div>
                </div>`
       }
@@ -371,15 +356,14 @@
       if (!activeData) return;
 
       document.getElementById('stage-title').innerText = activeData.title;
-      document.getElementById('stage-meta').innerText = activeData.meta;
-      document.getElementById('stage-markdown').innerHTML = activeData.body;
+      document.getElementById('stage-content').innerHTML = activeData.body;
 
       const player = document.getElementById('stage-player');
       const srcNode = document.getElementById('player-src');
       srcNode.src = activeData.src;
       player.load();
 
-      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
       event.currentTarget.classList.add('active');
     }
   </script>
